@@ -197,7 +197,9 @@ function organizeResult(result: OperationResult): OrganizedOperationResult {
     Delete: 1,
     Create: 2,
     Modify: 3,
+    'Array': 3,
     NoChange: 4,
+    NoEffect: 4,
     Ignore: 5,
   }
 
@@ -213,7 +215,14 @@ function organizeResult(result: OperationResult): OrganizedOperationResult {
       // select resources of this resource group
       .filter(elm => resourceGroupFromResouceId(elm.resourceId).id === rgid)
       // sort resources by change type
-      .sort((lhs, rhs) => changeTypeOrder[lhs.changeType] - changeTypeOrder[rhs.changeType]),
+      .sort((lhs, rhs) => changeTypeOrder[lhs.changeType] - changeTypeOrder[rhs.changeType])
+      // sort property by property change type
+      .map(elm => {
+        if (elm.delta) {
+          elm.delta = elm.delta.sort((lhs, rhs) => changeTypeOrder[lhs.propertyChangeType] - changeTypeOrder[rhs.propertyChangeType])
+        }
+        return elm
+      }),
     })),
   }
 }

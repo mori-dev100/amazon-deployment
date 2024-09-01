@@ -195,6 +195,58 @@ describe('writer', () => {
     })
   })
 
+  describe("organizeResult", () => {
+    it("resources are grouped by resouce group and sorted by change type", async () => {
+      const input = await import ('./writer-testdata-organize-result.json') as OperationResult
+      const result = test.organizeResult(input)
+      assert.deepEqual(result.scopes.map(elm => ({
+        id: elm.id,
+        resourceIds: elm.changes.map(r => r.resourceId),
+      })), [
+        {
+          id: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg',
+          resourceIds: [
+            '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testdelete1',
+            '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testdelete2',
+            '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testcreate1',
+            '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testcreate2',
+            '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.OperationalInsights/workspaces/testmodify1',
+            '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.OperationalInsights/workspaces/testmodify2',
+            '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange1',
+            '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange2',
+            '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignore1',
+            '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignore2',
+          ],
+        },
+        {
+          id: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2',
+          resourceIds: [
+            '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testdelete3',
+            '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testcreate3',
+          ],
+        },
+      ])
+    })
+
+    it("modify deltas are sorted by property change type", async () => {
+      const input = await import ('./writer-testdata-organize-result.json') as OperationResult
+      const result = test.organizeResult(input)
+      assert.deepEqual(result
+        .scopes.find(elm => elm.id === '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg')
+        .changes.find(elm => elm.resourceId === '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.OperationalInsights/workspaces/testmodify1')
+        .delta.map(elm => elm.path), [
+        'testpathdelete1',
+        'testpathdelete2',
+        'testpathcreate1',
+        'testpathcreate2',
+        'testpathmodify1',
+        'testpathmodify2',
+        'testpathnoeffect1',
+        'testpathnoeffect2',
+      ])
+    })
+  })
+
   it("organizeResult", async () => {
     const input = await import ('./writer-testdata-organize-result.json') as OperationResult
     const result = test.organizeResult(input)
