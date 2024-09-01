@@ -1,0 +1,17 @@
+{
+  "apiVersion": "2023-01-01",
+  "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testcreated",
+  "key1": "value1",
+  "key2long": 42,
+  "key3": true,
+  "key4": {
+    "key4-1": "value4-1"
+  },
+  "key5": [
+    {
+      "key5-1": "value5-1"
+    },
+    "value5-2"
+  ],
+  "type": "Microsoft.Storage/storageAccounts"
+}

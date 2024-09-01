@@ -1,0 +1,175 @@
+{
+  "changes": [
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testcreate1",
+        "resourceGroup": "test-rg"
+      },
+      "before": null,
+      "changeType": "Create",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testcreate1"
+    },
+    {
+      "after": null,
+      "before": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testdelete1",
+        "resourceGroup": "test-rg"
+      },
+      "changeType": "Delete",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testdelete1"
+    },
+    {
+      "after": {
+        "apiVersion": "2023-09-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.OperationalInsights/workspaces/testmodify1",
+        "resourceGroup": "test-rg"
+      },
+      "before": {
+        "apiVersion": "2023-09-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.OperationalInsights/workspaces/testmodify1",
+        "resourceGroup": "test-rg"
+      },
+      "changeType": "Modify",
+      "delta": [
+        {
+          "after": {
+            "key1": "value1"
+          },
+          "before": null,
+          "children": null,
+          "path": "testpath",
+          "propertyChangeType": "Create"
+        }
+      ],
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.OperationalInsights/workspaces/testmodify1"
+    },
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange1",
+        "resourceGroup": "test-rg"
+      },
+      "before": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange1",
+        "resourceGroup": "test-rg"
+      },
+      "changeType": "NoChange",
+      "delta": [],
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange1"
+    },
+    {
+      "after": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignore1",
+        "resourceGroup": "test-rg"
+      },
+      "before": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignore1",
+        "resourceGroup": "test-rg"
+      },
+      "changeType": "Ignore",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignore1"
+    },
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testcreate2",
+        "resourceGroup": "test-rg"
+      },
+      "before": null,
+      "changeType": "Create",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testcreate2"
+    },
+    {
+      "after": null,
+      "before": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testdelete2",
+        "resourceGroup": "test-rg"
+      },
+      "changeType": "Delete",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testdelete2"
+    },
+    {
+      "after": {
+        "apiVersion": "2023-09-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.OperationalInsights/workspaces/testmodify2",
+        "resourceGroup": "test-rg"
+      },
+      "before": {
+        "apiVersion": "2023-09-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.OperationalInsights/workspaces/testmodify2",
+        "resourceGroup": "test-rg"
+      },
+      "changeType": "Modify",
+      "delta": [
+        {
+          "after": {
+            "key1": "value1"
+          },
+          "before": null,
+          "children": null,
+          "path": "testpath",
+          "propertyChangeType": "Create"
+        }
+      ],
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.OperationalInsights/workspaces/testmodify2"
+    },
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange2",
+        "resourceGroup": "test-rg"
+      },
+      "before": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange2",
+        "resourceGroup": "test-rg"
+      },
+      "changeType": "NoChange",
+      "delta": [],
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange2"
+    },
+    {
+      "after": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignore2",
+        "resourceGroup": "test-rg"
+      },
+      "before": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignore2",
+        "resourceGroup": "test-rg"
+      },
+      "changeType": "Ignore",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignore2"
+    },
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testcreate3",
+        "resourceGroup": "test-rg2"
+      },
+      "before": null,
+      "changeType": "Create",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testcreate3"
+    },
+    {
+      "after": null,
+      "before": {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testdelete3",
+        "resourceGroup": "test-rg2"
+      },
+      "changeType": "Delete",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testdelete3"
+    }
+  ],
+  "error": null,
+  "status": "Succeeded"
+}
