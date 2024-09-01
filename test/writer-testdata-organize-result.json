@@ -35,13 +35,68 @@
       "changeType": "Modify",
       "delta": [
         {
-          "after": {
-            "key1": "value1"
-          },
+          "after": "value",
           "before": null,
           "children": null,
-          "path": "testpath",
+          "path": "testpathcreate1",
           "propertyChangeType": "Create"
+        },
+        {
+          "after": null,
+          "before": "value1",
+          "children": null,
+          "path": "testpathdelete1",
+          "propertyChangeType": "Delete"
+        },
+        {
+          "after": "valueafter",
+          "before": "valuebefore",
+          "children": null,
+          "path": "testpathmodify1",
+          "propertyChangeType": "Modify"
+        },
+        {
+          "after": "valueafter",
+          "before": "valuebefore",
+          "children": null,
+          "path": "testpathnoeffect1",
+          "propertyChangeType": "NoEffect"
+        },
+        {
+          "after": "value",
+          "before": null,
+          "children": null,
+          "path": "testpathcreate2",
+          "propertyChangeType": "Create"
+        },
+        {
+          "after": null,
+          "before": "value1",
+          "children": null,
+          "path": "testpathdelete2",
+          "propertyChangeType": "Delete"
+        },
+        {
+          "after": null,
+          "before": null,
+          "children": [
+            {
+              "after": "value",
+              "before": null,
+              "children": null,
+              "path": "testpathmodify2-1",
+              "propertyChangeType": "Create"
+            }
+          ],
+          "path": "testpathmodify2",
+          "propertyChangeType": "Array"
+        },
+        {
+          "after": "valueafter",
+          "before": "valuebefore",
+          "children": null,
+          "path": "testpathnoeffect2",
+          "propertyChangeType": "NoEffect"
         }
       ],
       "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.OperationalInsights/workspaces/testmodify1"
