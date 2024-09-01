@@ -1,0 +1,105 @@
+[
+  {
+    "after": "value1after",
+    "before": "value1before",
+    "children": null,
+    "path": "key1",
+    "propertyChangeType": "Modify"
+  },
+  {
+    "after": 43,
+    "before": 42,
+    "children": null,
+    "path": "key2long",
+    "propertyChangeType": "Modify"
+  },
+  {
+    "after": false,
+    "before": true,
+    "children": null,
+    "path": "key3",
+    "propertyChangeType": "Modify"
+  },
+  {
+    "after": null,
+    "before": null,
+    "children": [
+      {
+        "after": "value4-1after",
+        "before": "value4-1before",
+        "children": null,
+        "path": "key4-1",
+        "propertyChangeType": "Modify"
+      },
+      {
+        "after": null,
+        "before": null,
+        "children": [
+          {
+            "after": null,
+            "before": null,
+            "children": [
+              {
+                "after": "value4-2-0-1after",
+                "before": "value4-2-0-1before",
+                "children": null,
+                "path": "key4-2-0-1",
+                "propertyChangeType": "Modify"
+              }
+            ],
+            "path": "0",
+            "propertyChangeType": "Modify"
+          }
+        ],
+        "path": "key4-2",
+        "propertyChangeType": "Array"
+      }
+    ],
+    "path": "key4",
+    "propertyChangeType": "Modify"
+  },
+  {
+    "after": null,
+    "before": null,
+    "children": [
+      {
+        "after": "value5-0",
+        "before": null,
+        "children": null,
+        "path": "0",
+        "propertyChangeType": "Create"
+      },
+      {
+        "after": null,
+        "before": 42,
+        "children": null,
+        "path": "1",
+        "propertyChangeType": "Delete"
+      },
+      {
+        "after": false,
+        "before": true,
+        "children": null,
+        "path": "2",
+        "propertyChangeType": "Modify"
+      },
+      {
+        "after": null,
+        "before": null,
+        "children": [
+          {
+            "after": "value5-3-1after",
+            "before": "value5-3-1before",
+            "children": null,
+            "path": "key5-3-1",
+            "propertyChangeType": "Modify"
+          }
+        ],
+        "path": "3",
+        "propertyChangeType": "Modify"
+      }
+    ],
+    "path": "key5",
+    "propertyChangeType": "Array"
+  }
+]

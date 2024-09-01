@@ -1,0 +1,50 @@
+{
+  "name": "az-deployment-denoise",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node .",
+    "build": "tsc && tsc-alias",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "debug": "tsc && NODE_OPTIONS=--inspect-brk node .",
+    "clean": "rm -r dist",
+    "test": "mocha --require ts-node/register --require tsconfig-paths/register \"test/**/*.spec.ts\"",
+    "test:watch": "mocha --require ts-node/register --watch-extensions ts --watch-files test --watch-files src --watch \"test/**/*.spec.ts\"",
+    "test:debug": "NODE_OPTIONS=--inspect-brk mocha --require ts-node/register \"test/**/*.spec.ts\""
+  },
+  "keywords": [
+    "Azure",
+    "Bicep",
+    "ARM"
+  ],
+  "author": "Satoshi SAKAO",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4",
+    "@types/mocha": "^10",
+    "@types/node": "^20",
+    "@types/sinon": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^6",
+    "@typescript-eslint/parser": "^6",
+    "chai": "^4",
+    "eslint": "^8",
+    "mocha": "^10",
+    "sinon": "^18.0.0",
+    "ts-node": "^10",
+    "tsc-alias": "^1.8.10",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "dependencies": {
+    "fp-ts": "^2.16.9",
+    "io-ts": "^2.2.21"
+  }
+}

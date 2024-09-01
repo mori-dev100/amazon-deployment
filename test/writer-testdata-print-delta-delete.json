@@ -1,0 +1,54 @@
+[
+  {
+    "after": null,
+    "before": "value1",
+    "children": null,
+    "path": "key1",
+    "propertyChangeType": "Delete"
+  },
+  {
+    "after": null,
+    "before": 42,
+    "path": "key2long",
+    "propertyChangeType": "Delete"
+  },
+  {
+    "after": null,
+    "before": true,
+    "children": null,
+    "path": "key3",
+    "propertyChangeType": "Delete"
+  },
+  {
+    "after": null,
+    "before": {
+      "key4-1": "value4-1",
+      "key4-2": 43,
+      "key4-3": false,
+      "key4-4": {
+        "key4-4-1": "value4-4-1"
+      },
+      "key4-5": [
+        {
+          "key4-5-1": "value4-5-1"
+        },
+        "value4-5-2"
+      ]
+    },
+    "children": null,
+    "path": "key4",
+    "propertyChangeType": "Delete"
+  },
+  {
+    "after": null,
+    "before": [
+      {
+        "key5-1": "value5-1"
+      },
+      "value5-2"
+    ],
+    "children": null,
+    "path": "key5",
+    "propertyChangeType": "Delete"
+  }
+]
