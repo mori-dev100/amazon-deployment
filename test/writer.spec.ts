@@ -141,6 +141,42 @@ describe('writer', () => {
         ],
       )
     })
+
+    it("noeffect", async () => {
+      const spy = sinon.spy(testPrinter, 'printLine')
+      const input = await import ('./writer-testdata-print-delta-noeffect.json')
+      test.printPropertyChange(testPrinter, 2, input as PropertyChange[])
+      assert.deepEqual(spy.getCalls().map(elm => elm.args),
+        [
+          ['key1:     "value1"', 2, 'NoEffect'],
+          ['key2long: 42', 2, 'NoEffect'],
+          ['key3:     true', 2, 'NoEffect'],
+
+          ['key4:', 2, 'NoEffect'],
+          [],
+          ['key4-1:          "value4-1"', 3, ''],
+          ['key4-2:          43', 3, ''],
+          ['key4-3:          false', 3, ''],
+          ['key4-4.key4-4-1: "value4-4-1"', 3, ''],
+          ['key4-5: [', 3, ''],
+          ['0:', 4, ''],
+          [],
+          ['key4-5-1: "value4-5-1"', 5, ''],
+          [],
+          ['1: "value4-5-2"', 4, ''],
+          [']', 3, ''],
+          [],
+
+          ['key5: [', 2, 'NoEffect'],
+          ['0:', 3, ''],
+          [],
+          ['key5-1: "value5-1"', 4, ''],
+          [],
+          ['1: "value5-2"', 3, ''],
+          [']', 2, ''],
+        ],
+      )
+    })
   })
 
   it("flattenObject", () => {

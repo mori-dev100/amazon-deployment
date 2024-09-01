@@ -42,6 +42,7 @@ const consolePrinter: Printer = {
   },
 }
 
+// TODO: test me
 export function printPretty(OperationResult: OperationResult, printer: Printer = consolePrinter) {
   const pretty = organizeResult(OperationResult)
 
@@ -129,8 +130,9 @@ function printPropertyChange(printer: Printer, level: number, deltas: PropertyCh
   deltas.forEach(delta => {
     switch (delta.propertyChangeType) {
       case 'Create':
-      case 'Delete': {
-        const valueToPrint = delta.propertyChangeType === 'Create' ? delta.after : delta.before
+      case 'Delete':
+      case 'NoEffect': {
+        const valueToPrint = delta.propertyChangeType === 'Delete' ? delta.before : delta.after
         if (Array.isArray(valueToPrint)) {
           printer.printLine(`${delta.path}: [`, level, delta.propertyChangeType)
           valueToPrint.forEach((elm: unknown, idx) => {
