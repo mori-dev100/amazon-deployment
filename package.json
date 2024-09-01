@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "start": "node .",
+    "start": "node --enable-source-maps .",
     "build": "tsc && tsc-alias",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
