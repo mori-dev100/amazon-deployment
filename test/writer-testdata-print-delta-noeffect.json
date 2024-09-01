@@ -1,0 +1,54 @@
+[
+  {
+    "after": "value1",
+    "before": null,
+    "children": null,
+    "path": "key1",
+    "propertyChangeType": "NoEffect"
+  },
+  {
+    "after": 42,
+    "before": null,
+    "path": "key2long",
+    "propertyChangeType": "NoEffect"
+  },
+  {
+    "after": true,
+    "before": null,
+    "children": null,
+    "path": "key3",
+    "propertyChangeType": "NoEffect"
+  },
+  {
+    "after": {
+      "key4-1": "value4-1",
+      "key4-2": 43,
+      "key4-3": false,
+      "key4-4": {
+        "key4-4-1": "value4-4-1"
+      },
+      "key4-5": [
+        {
+          "key4-5-1": "value4-5-1"
+        },
+        "value4-5-2"
+      ]
+    },
+    "before": null,
+    "children": null,
+    "path": "key4",
+    "propertyChangeType": "NoEffect"
+  },
+  {
+    "after": [
+      {
+        "key5-1": "value5-1"
+      },
+      "value5-2"
+    ],
+    "before": null,
+    "children": null,
+    "path": "key5",
+    "propertyChangeType": "NoEffect"
+  }
+]
