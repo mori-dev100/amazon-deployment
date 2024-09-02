@@ -16,6 +16,7 @@ function signForChangeType(t: ChangeType | PropertyChangeType) {
     case 'Delete': return '-'
     case 'NoChange': return '='
     case 'Ignore': return '*'
+    case 'NoEffect': return 'x'
   }
 }
 
