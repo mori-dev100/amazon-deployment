@@ -63,11 +63,11 @@
     "before": null,
     "children": [
       {
-        "after": "value5-0",
-        "before": null,
+        "after": false,
+        "before": true,
         "children": null,
-        "path": "0",
-        "propertyChangeType": "Create"
+        "path": "2",
+        "propertyChangeType": "Modify"
       },
       {
         "after": null,
@@ -77,11 +77,11 @@
         "propertyChangeType": "Delete"
       },
       {
-        "after": false,
-        "before": true,
+        "after": "value5-0",
+        "before": null,
         "children": null,
-        "path": "2",
-        "propertyChangeType": "Modify"
+        "path": "0",
+        "propertyChangeType": "Create"
       },
       {
         "after": null,

@@ -182,12 +182,14 @@ function printPropertyChange(printer: Printer, level: number, deltas: PropertyCh
         }
         break
       }
-      case 'Array':
+      case 'Array': {
         printer.printLine(`${delta.path}: [`, level, 'Array')
-        printPropertyChange(printer, level + 1, delta.children)
+        const sortedChildren = delta.children.sort((lhs, rhs) => parseInt(lhs.path) - parseInt(rhs.path))
+        printPropertyChange(printer, level + 1, sortedChildren)
         printer.printLine()
         printer.printLine(']', level, '')
         break
+      }
     }
   })
 }
