@@ -39,7 +39,7 @@ describe('writer', () => {
   describe('printPropertyChange', () => {
     it("create", async () => {
       const spy = sinon.spy(testPrinter, 'printLine')
-      const input = await import ('./writer-testdata-print-delta-create.json')
+      const input = await import ('./writer-testdata-print-property-change-create.json')
       test.printPropertyChange(testPrinter, 2, input as PropertyChange[])
       assert.deepEqual(spy.getCalls().map(elm => elm.args),
         [
@@ -75,7 +75,7 @@ describe('writer', () => {
 
     it("delete", async () => {
       const spy = sinon.spy(testPrinter, 'printLine')
-      const input = await import ('./writer-testdata-print-delta-delete.json')
+      const input = await import ('./writer-testdata-print-property-change-delete.json')
       test.printPropertyChange(testPrinter, 2, input as PropertyChange[])
       assert.deepEqual(spy.getCalls().map(elm => elm.args),
         [
@@ -111,7 +111,7 @@ describe('writer', () => {
 
     it("modify", async () => {
       const spy = sinon.spy(testPrinter, 'printLine')
-      const input = await import ('./writer-testdata-print-delta-modify.json')
+      const input = await import ('./writer-testdata-print-property-change-modify.json')
       test.printPropertyChange(testPrinter, 2, input as PropertyChange[])
       assert.deepEqual(spy.getCalls().map(elm => elm.args),
         [
@@ -144,7 +144,7 @@ describe('writer', () => {
 
     it("noeffect", async () => {
       const spy = sinon.spy(testPrinter, 'printLine')
-      const input = await import ('./writer-testdata-print-delta-noeffect.json')
+      const input = await import ('./writer-testdata-print-property-change-noeffect.json')
       test.printPropertyChange(testPrinter, 2, input as PropertyChange[])
       assert.deepEqual(spy.getCalls().map(elm => elm.args),
         [
