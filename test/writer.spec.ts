@@ -345,12 +345,17 @@ describe('writer', () => {
         ['key1: "value1"', 2, 'Create'],
         [],
 
-        // nochange resouce
-        ['Microsoft.Storage/storageAccounts/testnochange [2023-01-01]', 1, 'NoChange'],
-        [],
+        // nochange resouce 1
+        ['Microsoft.Storage/storageAccounts/testnochange1 [2023-01-01]', 1, 'NoChange'],
 
-        // ignored resource
-        ['Microsoft.Storage/storageAccounts/testignored', 1, 'Ignore'],
+        // nochange resouce 2
+        ['Microsoft.Storage/storageAccounts/testnochange2 [2023-01-01]', 1, 'NoChange'],
+
+        // ignored resource 1
+        ['Microsoft.Storage/storageAccounts/testignored1', 1, 'Ignore'],
+
+        // ignored resource 2
+        ['Microsoft.Storage/storageAccounts/testignored2', 1, 'Ignore'],
       ])
   })
 })
