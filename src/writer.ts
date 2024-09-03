@@ -51,8 +51,8 @@ export function printPretty(OperationResult: OperationResult, printer: Printer =
   for (const scope of pretty.scopes) {
     printer.printLine()
     printer.printLine(`Scope: ${scope.id}`)
+    printer.printLine()
     for (const change of scope.changes) {
-      printer.printLine()
       const resourceId = stripResourceGroupFromResourceId(change.resourceId)
       switch (change.changeType) {
         case 'Create':
@@ -61,15 +61,18 @@ export function printPretty(OperationResult: OperationResult, printer: Printer =
           printer.printLine(`${resourceId} [${change.after['apiVersion']}]`, 1, change.changeType)
           printer.printLine()
           printObject(printer, 2, change.after)
+          printer.printLine()
           break
         case 'Delete':
           printer.printLine(`${resourceId}`, 1, change.changeType)
           printer.printLine()
           printObject(printer, 2, change.before)
+          printer.printLine()
           break
         case 'Modify':
           printer.printLine(`${resourceId} [${change.after['apiVersion']}]`, 1, change.changeType)
           printPropertyChange(printer, 2, change.delta)
+          printer.printLine()
           break
         case 'NoChange':
           printer.printLine(`${resourceId} [${change.after['apiVersion']}]`, 1, change.changeType)
