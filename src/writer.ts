@@ -43,7 +43,6 @@ const consolePrinter: Printer = {
   },
 }
 
-// TODO: test me
 export function printPretty(OperationResult: OperationResult, printer: Printer = consolePrinter) {
   const pretty = organizeResult(OperationResult)
 
@@ -260,6 +259,7 @@ function flattenObject(obj: object, path: string[] = []): object {
 }
 
 export const test = {
+  printPretty,
   printObject,
   printPropertyChange,
   flattenObject,
