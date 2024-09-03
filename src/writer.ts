@@ -88,6 +88,18 @@ export function printPretty(OperationResult: OperationResult, printer: Printer =
 }
 
 
+function stringifyPrimitiveValue(value: unknown) {
+  switch (typeof value) {
+    case 'string':
+      return `"${value}"`
+    case 'number':
+    case 'boolean':
+      return `${value}`
+    default:
+      throw Error(`invalid value type: JSON.stiringify(value)`)
+  }
+}
+
 function printObject(printer: Printer, level: number, obj: object, path: string[] = []) {
   const flattenObj = flattenObject(obj)
   const maxKeyLength = Object.keys(flattenObj).reduce((acc, cur) => Math.max(acc, cur.length), 0) + 2
@@ -115,15 +127,7 @@ function printObject(printer: Printer, level: number, obj: object, path: string[
       printObject(printer, level, value, [...path, key])
     }
     else {
-      switch (typeof value) {
-        case 'string':
-        printer.printLine(`${fullKeyPadded}"${value}"`, level, '')
-          break
-        case 'number':
-        case 'boolean':
-        printer.printLine(`${fullKeyPadded}${value}`, level, '')
-          break
-      }
+      printer.printLine(`${fullKeyPadded}${stringifyPrimitiveValue(value)}`, level, '')
     }
   }
 }
@@ -159,16 +163,7 @@ function printPropertyChange(printer: Printer, level: number, deltas: PropertyCh
         }
         else {
           const fullKeyPadded = `${delta.path}: `.padEnd(maxKeyLength)
-          printer.printLine(`${fullKeyPadded}${JSON.stringify(valueToPrint)}`, level, delta.propertyChangeType)
-          // switch (typeof valueToPrint) {
-          //   case 'string':
-          //     printer.printLine(`${fullKeyPadded}"${valueToPrint}"`, level, delta.propertyChangeType)
-          //     break
-          //   case 'number':
-          //   case 'boolean':
-          //     printer.printLine(`${fullKeyPadded}${valueToPrint}`, level, delta.propertyChangeType)
-          //     break
-          // }
+          printer.printLine(`${fullKeyPadded}${stringifyPrimitiveValue(valueToPrint)}`, level, delta.propertyChangeType)
         }
         break
       }

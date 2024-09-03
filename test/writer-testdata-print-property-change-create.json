@@ -7,6 +7,13 @@
     "propertyChangeType": "Create"
   },
   {
+    "after": "this is \"quoted\" value1",
+    "before": null,
+    "children": null,
+    "path": "key1quote",
+    "propertyChangeType": "Create"
+  },
+  {
     "after": 42,
     "before": null,
     "path": "key2long",

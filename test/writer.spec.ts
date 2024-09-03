@@ -21,6 +21,7 @@ describe('writer', () => {
         ['apiVersion:  "2023-01-01"', 2, ''],
         ['id:          "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testcreated"', 2, ''],
         ['key1:        "value1"', 2, ''],
+        ['key1quote:   "this is "quoted" value1"', 2, ''],
         ['key2long:    42', 2, ''],
         ['key3:        true', 2, ''],
         ['key4.key4-1: "value4-1"', 2, ''],
@@ -43,9 +44,10 @@ describe('writer', () => {
       test.printPropertyChange(testPrinter, 2, input as PropertyChange[])
       assert.deepEqual(spy.getCalls().map(elm => elm.args),
         [
-          ['key1:     "value1"', 2, 'Create'],
-          ['key2long: 42', 2, 'Create'],
-          ['key3:     true', 2, 'Create'],
+          ['key1:      "value1"', 2, 'Create'],
+          ['key1quote: "this is "quoted" value1"', 2, 'Create'],
+          ['key2long:  42', 2, 'Create'],
+          ['key3:      true', 2, 'Create'],
 
           ['key4:', 2, 'Create'],
           [],
