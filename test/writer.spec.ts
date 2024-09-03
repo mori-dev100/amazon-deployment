@@ -314,4 +314,43 @@ describe('writer', () => {
       },
     ])
   })
+
+  it("printPretty", async () => {
+    const spy = sinon.spy(testPrinter, 'printLine')
+    const input = await import ('./writer-testdata-print-pretty.json') as OperationResult
+    test.printPretty(input, testPrinter)
+    assert.deepEqual(spy.getCalls().map(elm => elm.args),
+      [
+        // first resource group
+        [],
+        ['Scope: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg'],
+        [],
+
+        // deteled resource
+        ['Microsoft.Storage/storageAccounts/testdeleted', 1, 'Delete'],
+        [],
+        ['apiVersion: "2023-01-01"', 2, ''],
+        ['id:         "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testdeleted"', 2, ''],
+        [],
+
+        // created resource
+        ['Microsoft.Storage/storageAccounts/testcreated [2023-01-01]', 1, 'Create'],
+        [],
+        ['apiVersion: "2023-01-01"', 2, ''],
+        ['id:         "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testcreated"', 2, ''],
+        [],
+
+        // modfied resource
+        ['Microsoft.Storage/storageAccounts/testmodified [2023-01-01]', 1, 'Modify'],
+        ['key1: "value1"', 2, 'Create'],
+        [],
+
+        // nochange resouce
+        ['Microsoft.Storage/storageAccounts/testnochange [2023-01-01]', 1, 'NoChange'],
+        [],
+
+        // ignored resource
+        ['Microsoft.Storage/storageAccounts/testignored', 1, 'Ignore'],
+      ])
+  })
 })
