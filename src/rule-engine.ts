@@ -2,25 +2,21 @@ import { Rule } from '@/types/config'
 import { OperationResult, PropertyChange } from '@/types/whatif'
 import { parseAzureResource } from '@/utils/azure'
 
-function matchResourceGroup(condition: string, resourceGroup: string): boolean {
-  return condition !== undefined &&
-    condition === resourceGroup
-  return condition === undefined || condition === resourceGroup
-}
-
-function matchResourceType(condition: string, resourceType: string): boolean {
-  return condition === undefined || condition === resourceType
+function matchString(condition: string, value: string): boolean {
+  return condition === undefined || condition === value
 }
 
 function filterPropertyChanges(propertyChange: PropertyChange[], resourceId: string, rules: Rule[]): PropertyChange[] {
   return propertyChange.map(pc => {
     for (const rule of rules) {
-      const resourceGroupMatched = matchResourceGroup(rule.resourceGroupName, parseAzureResource(resourceId).resourceGroup.name)
-      const resourceTypeMatched = matchResourceType(rule.resourceType, parseAzureResource(resourceId).type)
+      const resource = parseAzureResource(resourceId)
+      const resourceGroupMatched = matchString(rule.resourceGroupName, resource.resourceGroup.name)
+      const resourceTypeMatched = matchString(rule.resourceType, resource.type)
+      const providerNamespaceMatched = matchString(rule.providerNamespace, resource.providerNamespace)
       if (
-        matchResourceGroup(rule.resourceGroupName, parseAzureResource(resourceId).resourceGroup.name)
         resourceGroupMatched
         && resourceTypeMatched
+        && providerNamespaceMatched
       ) {
         return null
       }
