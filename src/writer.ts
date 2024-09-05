@@ -1,5 +1,5 @@
 import { OperationResult, ChangeType, PropertyChangeType, Change, PropertyChange } from '@/types/whatif'
-import { resourceGroupFromResouceId, stripResourceGroupFromResourceId } from '@/utils/azure'
+import { parseAzureResource } from '@/utils/azure'
 
 type OrganizedOperationResult = {
   scopes: {
@@ -53,32 +53,32 @@ export function printPretty(OperationResult: OperationResult, printer: Printer =
     printer.printLine(`Scope: ${scope.id}`)
     printer.printLine()
     for (const change of scope.changes) {
-      const resourceId = stripResourceGroupFromResourceId(change.resourceId)
+      const pathInScope = parseAzureResource(change.resourceId).pathInScope
       switch (change.changeType) {
         case 'Create':
           // FIME: clone object and delete property
           delete change.after['resourceGroup']
-          printer.printLine(`${resourceId} [${change.after['apiVersion']}]`, 1, change.changeType)
+          printer.printLine(`${pathInScope} [${change.after['apiVersion']}]`, 1, change.changeType)
           printer.printLine()
           printObject(printer, 2, change.after)
           printer.printLine()
           break
         case 'Delete':
-          printer.printLine(`${resourceId}`, 1, change.changeType)
+          printer.printLine(`${pathInScope}`, 1, change.changeType)
           printer.printLine()
           printObject(printer, 2, change.before)
           printer.printLine()
           break
         case 'Modify':
-          printer.printLine(`${resourceId} [${change.after['apiVersion']}]`, 1, change.changeType)
+          printer.printLine(`${pathInScope} [${change.after['apiVersion']}]`, 1, change.changeType)
           printPropertyChange(printer, 2, change.delta)
           printer.printLine()
           break
         case 'NoChange':
-          printer.printLine(`${resourceId} [${change.after['apiVersion']}]`, 1, change.changeType)
+          printer.printLine(`${pathInScope} [${change.after['apiVersion']}]`, 1, change.changeType)
           break
         case 'Ignore':
-          printer.printLine(`${resourceId}`, 1, change.changeType)
+          printer.printLine(`${pathInScope}`, 1, change.changeType)
           break
       }
     }
@@ -207,7 +207,7 @@ function organizeResult(result: OperationResult): OrganizedOperationResult {
 
   // create resource group set from resouces
   const resourceGroupIds = new Set<string>
-  result.changes.forEach(elm => resourceGroupIds.add(resourceGroupFromResouceId(elm.resourceId).id))
+  result.changes.forEach(elm => resourceGroupIds.add(parseAzureResource(elm.resourceId).resourceGroup.id))
 
   // categorize resources into each resource group
   return {
@@ -215,7 +215,7 @@ function organizeResult(result: OperationResult): OrganizedOperationResult {
       id: rgid,
       changes: result.changes
       // select resources of this resource group
-      .filter(elm => resourceGroupFromResouceId(elm.resourceId).id === rgid)
+      .filter(elm => parseAzureResource(elm.resourceId).resourceGroup.id === rgid)
       // sort resources by change type
       .sort((lhs, rhs) => changeTypeOrder[lhs.changeType] - changeTypeOrder[rhs.changeType])
       // sort property by property change type
