@@ -1,26 +1,43 @@
-/**
- * specify resource group from resource ID
- */
-export function resourceGroupFromResouceId(resourceId: string): {id: string, name: string} | null {
-  const match = resourceId.match(/(\/subscriptions\/[^/]+\/resourceGroups\/)([^/]+)\//)
-  if (match == null) {
-    return null
-  }
-
-  return {
-    name: match[2],
-    id: `${match[1]}${match[2]}`,
-  }
+export type AzureResource = {
+  id: string,
+  scope: 'resourceGroup',
+  subscriptionId: string,
+  resourceGroup: {
+    id: string,
+    name: string,
+  },
+  providerNamespace: string,
+  type: string,
+  name: string,
+  pathInScope: string,
 }
 
 /**
- * strip resource group from resource ID
+ * parse azure resource information from id
  */
-export function stripResourceGroupFromResourceId(resourceId: string): string | null {
-  const match = resourceId.match(/\/subscriptions\/[^/]+\/resourceGroups\/[^/]+\/providers\/(.+)/)
+export function parseAzureResource(id: string): AzureResource {
+  const match = id.match(/\/subscriptions\/([^/]+)\/resourceGroups\/([^/]+)\/providers\/([^/]+)\/([^/]+)\/(.+)/)
   if (match == null) {
-    return null
+    throw Error(`invalid resource id format: ${id}`)
   }
 
-  return match[1]
+  const subscriptionId = match[1]
+  const resourceGroupName = match[2]
+  const providerNamespace = match[3]
+  const type = match[4]
+  const name = match[5]
+
+  return {
+    id: id,
+    scope: 'resourceGroup',
+    subscriptionId,
+    resourceGroup: {
+      id: `/subscriptions/${subscriptionId}/resourceGroups/${resourceGroupName}`,
+      name: resourceGroupName,
+    },
+    providerNamespace,
+    type,
+    name,
+    pathInScope: `${providerNamespace}/${type}/${name}`,
+  }
 }
