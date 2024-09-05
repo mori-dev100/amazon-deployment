@@ -8,6 +8,7 @@ const RuleT = t.intersection([
     providerNamespace: t.string,
     resourceType: t.string,
     resourceName: t.string,
+    resourceNameRegex: t.string,
   }),
 ])
 

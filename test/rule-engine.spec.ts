@@ -47,6 +47,17 @@ describe('rule-engine', () => {
     ])
   })
 
+  it("filter resource name (regex)", async () => {
+    const input = await import ('./rule-engine-testdata-resourcename-regex.json') as OperationResult
+
+    const actual = denoiseOperationResult(input, [{
+      resourceNameRegex: '.*hoge.*',
+    }])
+    assert.deepEqual(actual.changes.map(c => c.resourceId), [
+      '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+    ])
+  })
+
   // TODO: empty rule
   // TODO: mixed rule (AND)
   // TODO: multiple rule (OR)
