@@ -1,8 +1,13 @@
 import * as t from 'io-ts'
 
-const RuleT = t.type({
-  resourceGroupName: t.union([t.string, t.undefined]),
-})
+const RuleT = t.intersection([
+  t.type({
+  }),
+  t.partial({
+    resourceGroupName: t.string,
+    resourceType: t.string,
+  }),
+])
 
 export const ConfigT = t.type({
   rules: t.array(RuleT),
