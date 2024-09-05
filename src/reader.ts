@@ -5,6 +5,7 @@ import { pipe } from 'fp-ts/function'
 import { fold } from 'fp-ts/Either'
 
 import { OperationResult, OperationResultT } from '@/types/whatif'
+import { Config, ConfigT } from '@/types/config'
 
 /**
  * read content from file or stdin
@@ -39,6 +40,18 @@ export async function readOperationResult(path?: string): Promise<OperationResul
   const decoded = OperationResultT.decode(JSON.parse(content))
   if (isLeft(decoded)) {
     throw Error(`invalid what-if operation result at [${getPaths(decoded).join(', ')}]`)
+  }
+  return decoded.right
+}
+
+/**
+ * read config file
+ */
+export async function readConfig(path: string): Promise<Config> {
+  const content = await readFile(path)
+  const decoded = ConfigT.decode(JSON.parse(content))
+  if (isLeft(decoded)) {
+    throw Error(`invalid config at [${getPaths(decoded).join(', ')}]`)
   }
   return decoded.right
 }
