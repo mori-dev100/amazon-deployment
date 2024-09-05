@@ -6,6 +6,10 @@ function matchString(condition: string, value: string): boolean {
   return condition === undefined || condition === value
 }
 
+function matchStringRegex(condition: string, value: string): boolean {
+  return condition === undefined || new RegExp(condition).test(value)
+}
+
 function filterPropertyChanges(propertyChange: PropertyChange[], resourceId: string, rules: Rule[]): PropertyChange[] {
   return propertyChange.map(pc => {
     for (const rule of rules) {
@@ -14,11 +18,13 @@ function filterPropertyChanges(propertyChange: PropertyChange[], resourceId: str
       const providerNamespaceMatched = matchString(rule.providerNamespace, resource.providerNamespace)
       const resourceTypeMatched = matchString(rule.resourceType, resource.type)
       const resourceNameMatched = matchString(rule.resourceName, resource.name)
+      const resourceNameRegexMatched = matchStringRegex(rule.resourceNameRegex, resource.name)
       if (
         resourceGroupMatched
         && providerNamespaceMatched
         && resourceTypeMatched
         && resourceNameMatched
+        && resourceNameRegexMatched
       ) {
         return null
       }
