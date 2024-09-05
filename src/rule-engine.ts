@@ -11,12 +11,14 @@ function filterPropertyChanges(propertyChange: PropertyChange[], resourceId: str
     for (const rule of rules) {
       const resource = parseAzureResource(resourceId)
       const resourceGroupMatched = matchString(rule.resourceGroupName, resource.resourceGroup.name)
-      const resourceTypeMatched = matchString(rule.resourceType, resource.type)
       const providerNamespaceMatched = matchString(rule.providerNamespace, resource.providerNamespace)
+      const resourceTypeMatched = matchString(rule.resourceType, resource.type)
+      const resourceNameMatched = matchString(rule.resourceName, resource.name)
       if (
         resourceGroupMatched
-        && resourceTypeMatched
         && providerNamespaceMatched
+        && resourceTypeMatched
+        && resourceNameMatched
       ) {
         return null
       }
