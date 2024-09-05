@@ -35,4 +35,19 @@ describe('rule-engine', () => {
       '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2',
     ])
   })
+
+  it("filter resource name", async () => {
+    const input = await import ('./rule-engine-testdata-resourcename.json') as OperationResult
+
+    const actual = denoiseOperationResult(input, [{
+      resourceName: 'testmodify1',
+    }])
+    assert.deepEqual(actual.changes.map(c => c.resourceId), [
+      '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2',
+    ])
+  })
+
+  // TODO: empty rule
+  // TODO: mixed rule (AND)
+  // TODO: multiple rule (OR)
 })

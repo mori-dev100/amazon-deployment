@@ -5,8 +5,9 @@ const RuleT = t.intersection([
   }),
   t.partial({
     resourceGroupName: t.string,
-    resourceType: t.string,
     providerNamespace: t.string,
+    resourceType: t.string,
+    resourceName: t.string,
   }),
 ])
 
