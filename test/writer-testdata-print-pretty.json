@@ -1,0 +1,99 @@
+{
+  "changes": [
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testcreated"
+      },
+      "before": null,
+      "changeType": "Create",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testcreated"
+    },
+    {
+      "after": null,
+      "before": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testdeleted"
+      },
+      "changeType": "Delete",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testdeleted"
+    },
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testmodified"
+      },
+      "before": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testmodified"
+      },
+      "changeType": "Modify",
+      "delta": [
+        {
+          "after": "value1",
+          "before": null,
+          "children": null,
+          "path": "key1",
+          "propertyChangeType": "Create"
+        }
+      ],
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testmodified"
+    },
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignored1"
+      },
+      "before": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignored1"
+      },
+      "changeType": "Ignore",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignored1"
+    },
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignored2"
+      },
+      "before": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignored2"
+      },
+      "changeType": "Ignore",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testignored2"
+    },
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange1"
+      },
+      "before": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange1"
+      },
+      "changeType": "NoChange",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange1"
+    },
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange2"
+      },
+      "before": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange2"
+      },
+      "changeType": "NoChange",
+      "delta": null,
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Storage/storageAccounts/testnochange2"
+    }
+  ],
+  "error": null,
+  "status": "Succeeded"
+}
