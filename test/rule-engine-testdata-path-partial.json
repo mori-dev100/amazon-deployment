@@ -1,0 +1,58 @@
+{
+  "changes": [
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2"
+      },
+      "before": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2"
+      },
+      "changeType": "Modify",
+      "delta": [
+        {
+          "after": "null",
+          "before": null,
+          "children": [
+            {
+              "after": null,
+              "before": null,
+              "children": [
+                {
+                  "after": "value2-0-1after",
+                  "before": "value2-0-1before",
+                  "children": null,
+                  "path": "path2-0-1",
+                  "propertyChangeType": "Modify"
+                }
+              ],
+              "path": "0",
+              "propertyChangeType": "Modify"
+            },
+            {
+              "after": null,
+              "before": null,
+              "children": [
+                {
+                  "after": "value2-1-1after",
+                  "before": "value2-1-1before",
+                  "children": null,
+                  "path": "path2-1-1",
+                  "propertyChangeType": "Modify"
+                }
+              ],
+              "path": "1",
+              "propertyChangeType": "Modify"
+            }
+          ],
+          "path": "path2",
+          "propertyChangeType": "Array"
+        }
+      ],
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2"
+    }
+  ],
+  "error": null,
+  "status": "Succeeded"
+}

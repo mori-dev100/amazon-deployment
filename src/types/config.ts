@@ -9,6 +9,7 @@ const RuleT = t.intersection([
     resourceType: t.string,
     resourceName: t.string,
     resourceNameRegex: t.string,
+    propertyPath: t.string,
   }),
 ])
 
