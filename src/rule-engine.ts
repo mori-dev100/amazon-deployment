@@ -11,7 +11,16 @@ function matchStringRegex(condition: string, value: string): boolean {
 }
 
 function filterPropertyChanges(propertyChange: PropertyChange[], resourceId: string, rules: Rule[]): PropertyChange[] {
+function filterPropertyChanges(propertyChange: PropertyChange[], resourceId: string, rules: Rule[], parentPath: string = '', isArray: boolean = false): PropertyChange[] {
   return propertyChange.map(pc => {
+    let fullPath: string
+    if (isArray) {
+      fullPath = `${parentPath}[]`
+    }
+    else {
+      fullPath = parentPath === '' ? pc.path : `${parentPath}.${pc.path}`
+    }
+
     for (const rule of rules) {
       const resource = parseAzureResource(resourceId)
       const resourceGroupMatched = matchString(rule.resourceGroupName, resource.resourceGroup.name)
@@ -19,15 +28,31 @@ function filterPropertyChanges(propertyChange: PropertyChange[], resourceId: str
       const resourceTypeMatched = matchString(rule.resourceType, resource.type)
       const resourceNameMatched = matchString(rule.resourceName, resource.name)
       const resourceNameRegexMatched = matchStringRegex(rule.resourceNameRegex, resource.name)
+      const pathMatched = matchString(rule.propertyPath, fullPath)
       if (
         resourceGroupMatched
         && providerNamespaceMatched
         && resourceTypeMatched
         && resourceNameMatched
         && resourceNameRegexMatched
+        && pathMatched
       ) {
         return null
       }
+    }
+    if (pc.propertyChangeType === 'Modify' && pc.children !== null) {
+      pc.children = filterPropertyChanges(pc.children, resourceId, rules, fullPath)
+      if (pc.children.length == 0) {
+        return null
+      }
+      return pc
+    }
+    else if (pc.propertyChangeType === 'Array' && pc.children !== null) {
+      pc.children = filterPropertyChanges(pc.children, resourceId, rules, fullPath, true)
+      if (pc.children.length == 0) {
+        return null
+      }
+      return pc
     }
     return pc
   }).filter(pc => pc != null)
