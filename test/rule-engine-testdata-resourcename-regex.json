@@ -1,0 +1,69 @@
+{
+  "changes": [
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1"
+      },
+      "before": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1"
+      },
+      "changeType": "Modify",
+      "delta": [
+        {
+          "after": "value1",
+          "before": null,
+          "children": null,
+          "path": "key1",
+          "propertyChangeType": "Create"
+        }
+      ],
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1"
+    },
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testhogemodify2"
+      },
+      "before": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testhogemodify2"
+      },
+      "changeType": "Modify",
+      "delta": [
+        {
+          "after": "value1",
+          "before": null,
+          "children": null,
+          "path": "key1",
+          "propertyChangeType": "Create"
+        }
+      ],
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testhogemodify2"
+    },
+    {
+      "after": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testhogemodify3"
+      },
+      "before": {
+        "apiVersion": "2023-01-01",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testhogemodify3"
+      },
+      "changeType": "Modify",
+      "delta": [
+        {
+          "after": "value1",
+          "before": null,
+          "children": null,
+          "path": "key1",
+          "propertyChangeType": "Create"
+        }
+      ],
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testhogemodify3"
+    }
+  ],
+  "error": null,
+  "status": "Succeeded"
+}
