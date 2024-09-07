@@ -121,7 +121,7 @@ describe('rule-engine', () => {
                   children:
                   [
                     {
-                      path: 'path2-1-1'
+                      path: 'path2-1-1',
                     },
                   ],
                 },
