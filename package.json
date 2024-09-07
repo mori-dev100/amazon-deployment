@@ -17,6 +17,9 @@
     "test:watch": "mocha --watch \"test/**/*.spec.ts\"",
     "test:debug": "NODE_OPTIONS=--inspect-brk mocha \"test/**/*.spec.ts\""
   },
+  "bin": {
+    "az-deployment-denoise": "bin/az-deployment-denoise"
+  },
   "keywords": [
     "Azure",
     "Bicep",
