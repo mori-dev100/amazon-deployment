@@ -1,7 +1,7 @@
 {
   "name": "az-deployment-denoise",
   "version": "0.1.0",
-  "description": "",
+  "description": "Azure deployment what-If denoiser",
   "main": "dist/index.js",
   "directories": {
     "test": "test"
