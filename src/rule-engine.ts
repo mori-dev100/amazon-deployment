@@ -10,7 +10,6 @@ function matchStringRegex(condition: string, value: string): boolean {
   return condition === undefined || new RegExp(condition).test(value)
 }
 
-function filterPropertyChanges(propertyChange: PropertyChange[], resourceId: string, rules: Rule[]): PropertyChange[] {
 function filterPropertyChanges(propertyChange: PropertyChange[], resourceId: string, rules: Rule[], parentPath: string = '', isArray: boolean = false): PropertyChange[] {
   return propertyChange.map(pc => {
     let fullPath: string
