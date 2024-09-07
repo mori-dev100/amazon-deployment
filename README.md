@@ -183,3 +183,7 @@ npm run test:debug
 ```
 npm run clean
 ```
+
+## License
+
+MIT
