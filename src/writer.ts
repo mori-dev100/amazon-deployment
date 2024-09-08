@@ -46,7 +46,10 @@ const consolePrinter: Printer = {
 export function printPretty(OperationResult: OperationResult, printer: Printer = consolePrinter) {
   const pretty = organizeResult(OperationResult)
 
-  // TODO: print header
+  // print header
+  printer.printLine('Note: The result may contain false positive predictions (noise).')
+  printer.printLine('You can help us improve the accuracy of the result by opening an issue here: https://aka.ms/WhatIfIssues')
+  printer.printLine('This result has been filtered using az-deployment-denoise: https://github.com/ottijp/az-deployment-denoise')
 
   for (const scope of pretty.scopes) {
     printer.printLine()
