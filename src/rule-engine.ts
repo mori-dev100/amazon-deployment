@@ -68,7 +68,7 @@ export function denoiseOperationResult(operationReuslt: OperationResult, rules: 
 
     c.delta = filterPropertyChanges(c.delta, c.resourceId, rules)
     if (c.delta.length == 0) {
-      return null
+      c.changeType = 'NoChange'
     }
 
     return c

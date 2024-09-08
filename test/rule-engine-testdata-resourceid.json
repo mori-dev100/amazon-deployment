@@ -3,11 +3,11 @@
     {
       "after": {
         "apiVersion": "2023-01-01",
-        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodified"
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodified1"
       },
       "before": {
         "apiVersion": "2023-01-01",
-        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodified"
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodified1"
       },
       "changeType": "Modify",
       "delta": [
@@ -19,16 +19,16 @@
           "propertyChangeType": "Create"
         }
       ],
-      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodified"
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodified1"
     },
     {
       "after": {
         "apiVersion": "2023-01-01",
-        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testmodified"
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testmodified2"
       },
       "before": {
         "apiVersion": "2023-01-01",
-        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testmodified"
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testmodified2"
       },
       "changeType": "Modify",
       "delta": [
@@ -40,7 +40,7 @@
           "propertyChangeType": "Create"
         }
       ],
-      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testmodified"
+      "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testmodified2"
     }
   ],
   "error": null,
