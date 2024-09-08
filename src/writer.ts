@@ -8,6 +8,16 @@ type OrganizedOperationResult = {
   }[]
 }
 
+const changeTypeOrder = {
+  Delete: 1,
+  Create: 2,
+  Modify: 3,
+  'Array': 3,
+  NoChange: 4,
+  NoEffect: 4,
+  Ignore: 5,
+}
+
 function signForChangeType(t: ChangeType | PropertyChangeType) {
   switch (t) {
     case 'Create': return '+'
@@ -51,6 +61,8 @@ export function printPretty(OperationResult: OperationResult, printer: Printer =
   printer.printLine('You can help us improve the accuracy of the result by opening an issue here: https://aka.ms/WhatIfIssues')
   printer.printLine('This result has been filtered using az-deployment-denoise: https://github.com/ottijp/az-deployment-denoise')
 
+  // TODO: symbol list
+
   for (const scope of pretty.scopes) {
     printer.printLine()
     printer.printLine(`Scope: ${scope.id}`)
@@ -87,7 +99,29 @@ export function printPretty(OperationResult: OperationResult, printer: Printer =
     }
   }
 
-  // TODO: print footer
+  // summarize change types
+  const allChangeTypes = pretty.scopes.map(s => s.changes).flatMap(c => c).map(c => c.changeType)
+  const changeTypeSummary = allChangeTypes.reduce((acc, value) => {
+    acc[value] = (acc[value] || 0) + 1
+    return acc
+  }, {} as Record<string, number>)
+  const changeTypeSummaryOrdered = Object.entries(changeTypeSummary)
+    .map(([value, count]) => ({ value, count }))
+    .sort((lhs, rhs) => changeTypeOrder[lhs.value] - changeTypeOrder[rhs.value])
+
+  // print change summary
+  const changeTypesDescription = changeTypeSummaryOrdered
+    .filter(c => c.value != 'Ignore')
+    .map(c => {
+      switch (c.value) {
+        case 'Create': return `${c.count} to create`
+        case 'Delete': return `${c.count} to delete`
+        case 'Modify': return `${c.count} to modify`
+        case 'NoChange': return `${c.count} no change`
+      }
+    }).join(', ')
+  printer.printLine()
+  printer.printLine(`Resource changes: ${changeTypesDescription}.`)
 }
 
 
@@ -198,16 +232,6 @@ function printPropertyChange(printer: Printer, level: number, deltas: PropertyCh
  * organize operation result
  * */
 function organizeResult(result: OperationResult): OrganizedOperationResult {
-  const changeTypeOrder = {
-    Delete: 1,
-    Create: 2,
-    Modify: 3,
-    'Array': 3,
-    NoChange: 4,
-    NoEffect: 4,
-    Ignore: 5,
-  }
-
   // create resource group set from resouces
   const resourceGroupIds = new Set<string>
   result.changes.forEach(elm => resourceGroupIds.add(parseAzureResource(elm.resourceId).resourceGroup.id))

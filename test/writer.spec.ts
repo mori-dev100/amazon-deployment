@@ -323,8 +323,13 @@ describe('writer', () => {
     test.printPretty(input, testPrinter)
     assert.deepEqual(spy.getCalls().map(elm => elm.args),
       [
-        // first resource group
+        // header
+        ['Note: The result may contain false positive predictions (noise).'],
+        ['You can help us improve the accuracy of the result by opening an issue here: https://aka.ms/WhatIfIssues'],
+        ['This result has been filtered using az-deployment-denoise: https://github.com/ottijp/az-deployment-denoise'],
         [],
+
+        // first resource group
         ['Scope: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg'],
         [],
 
@@ -358,6 +363,10 @@ describe('writer', () => {
 
         // ignored resource 2
         ['Microsoft.Storage/storageAccounts/testignored2', 1, 'Ignore'],
+
+        // footer
+        [],
+        ['Resource changes: 1 to delete, 1 to create, 1 to modify, 2 no change.'],
       ])
   })
 })
