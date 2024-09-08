@@ -9,8 +9,18 @@ describe('rule-engine', () => {
     const actual = denoiseOperationResult(input, [{
       resourceGroupName: 'test-rg1',
     }])
-    assert.deepEqual(actual.changes.map(c => c.resourceId), [
-      '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testmodified',
+    assert.deepEqual(actual.changes.map(c => ({
+      resourceId: c.resourceId,
+      changeType: c.changeType,
+    })), [
+      {
+        resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodified1',
+        changeType: 'NoChange',
+      },
+      {
+        resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.Storage/storageAccounts/testmodified2',
+        changeType: 'Modify',
+      },
     ])
   })
 
@@ -20,8 +30,18 @@ describe('rule-engine', () => {
     const actual = denoiseOperationResult(input, [{
       resourceType: 'workspaces',
     }])
-    assert.deepEqual(actual.changes.map(c => c.resourceId), [
-      '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+    assert.deepEqual(actual.changes.map(c => ({
+      resourceId: c.resourceId,
+      changeType: c.changeType,
+    })), [
+      {
+        resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+        changeType: 'Modify',
+      },
+      {
+        resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2',
+        changeType: 'NoChange',
+      },
     ])
   })
 
@@ -31,8 +51,18 @@ describe('rule-engine', () => {
     const actual = denoiseOperationResult(input, [{
       providerNamespace: 'Microsoft.Storage',
     }])
-    assert.deepEqual(actual.changes.map(c => c.resourceId), [
-      '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2',
+    assert.deepEqual(actual.changes.map(c => ({
+      resourceId: c.resourceId,
+      changeType: c.changeType,
+    })), [
+      {
+        resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+        changeType: 'NoChange',
+      },
+      {
+        resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2',
+        changeType: 'Modify',
+      },
     ])
   })
 
@@ -42,8 +72,18 @@ describe('rule-engine', () => {
     const actual = denoiseOperationResult(input, [{
       resourceName: 'testmodify1',
     }])
-    assert.deepEqual(actual.changes.map(c => c.resourceId), [
-      '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2',
+    assert.deepEqual(actual.changes.map(c => ({
+      resourceId: c.resourceId,
+      changeType: c.changeType,
+    })), [
+      {
+        resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+        changeType: 'NoChange',
+      },
+      {
+        resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2',
+        changeType: 'Modify',
+      },
     ])
   })
 
@@ -53,8 +93,22 @@ describe('rule-engine', () => {
     const actual = denoiseOperationResult(input, [{
       resourceNameRegex: '.*hoge.*',
     }])
-    assert.deepEqual(actual.changes.map(c => c.resourceId), [
-      '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+    assert.deepEqual(actual.changes.map(c => ({
+      resourceId: c.resourceId,
+      changeType: c.changeType,
+    })), [
+      {
+        resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+        changeType: 'Modify',
+      },
+      {
+        resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testhogemodify2',
+        changeType: 'NoChange',
+      },
+      {
+        resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testhogemodify3',
+        changeType: 'NoChange',
+      },
     ])
   })
 
@@ -65,8 +119,18 @@ describe('rule-engine', () => {
       const actual = denoiseOperationResult(input, [{
         propertyPath: 'path2',
       }])
-      assert.deepEqual(actual.changes.map(c => c.resourceId), [
-        '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+      assert.deepEqual(actual.changes.map(c => ({
+        resourceId: c.resourceId,
+        changeType: c.changeType,
+      })), [
+        {
+          resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+          changeType: 'Modify',
+        },
+        {
+          resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2',
+          changeType: 'NoChange',
+        },
       ])
     })
 
@@ -76,8 +140,18 @@ describe('rule-engine', () => {
       const actual = denoiseOperationResult(input, [{
         propertyPath: 'path2.path2-1',
       }])
-      assert.deepEqual(actual.changes.map(c => c.resourceId), [
-        '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+      assert.deepEqual(actual.changes.map(c => ({
+        resourceId: c.resourceId,
+        changeType: c.changeType,
+      })), [
+        {
+          resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+          changeType: 'Modify',
+        },
+        {
+          resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2',
+          changeType: 'NoChange',
+        },
       ])
     })
 
@@ -87,8 +161,18 @@ describe('rule-engine', () => {
       const actual = denoiseOperationResult(input, [{
         propertyPath: 'path2[].path2-0-1',
       }])
-      assert.deepEqual(actual.changes.map(c => c.resourceId), [
-        '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+      assert.deepEqual(actual.changes.map(c => ({
+        resourceId: c.resourceId,
+        changeType: c.changeType,
+      })), [
+        {
+          resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+          changeType: 'Modify',
+        },
+        {
+          resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2',
+          changeType: 'NoChange',
+        },
       ])
     })
 
