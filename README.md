@@ -96,14 +96,15 @@ yarn global add az-deployment-denoise
 Define rules in `az-deployment-denoise.json` for filtering changes.
 You can use the following conditions.
 
- | Key               | Meaning                       | Example                                 |
- |:------------------|:------------------------------|:----------------------------------------|
- | resourceGroupName | resource group name           | test-rg                                 |
- | providerNamespace | provider namespace            | Microsoft.Web                           |
- | resourceType      | resource type                 | sites                                   |
- | resourceName      | resource name                 | test-func-denoise                       |
- | resourceNameRegex | resource name (regex)         | ^[^-]+-func-denoise$                    |
- | propertyPath      | propety path joined with `.`  | properties.siteConfig.localMySqlEnabled |
+| Key                | Meaning                                                                        | Example                                 |
+|:-------------------|:-------------------------------------------------------------------------------|:----------------------------------------|
+| resourceGroupName  | resource group name                                                            | test-rg                                 |
+| providerNamespace  | provider namespace                                                             | Microsoft.Web                           |
+| resourceType       | resource type                                                                  | sites                                   |
+| resourceName       | resource name                                                                  | test-func-denoise                       |
+| resourceNameRegex  | resource name (regex)                                                          | ^[^-]+-func-denoise$                    |
+| propertyChangeType | type of property change type (Create \| Delete \| Modify \| Array \| NoEffect) | Delete                                  |
+| propertyPath       | propety path joined with `.`                                                   | properties.siteConfig.localMySqlEnabled |
 
 If you want to filter the resource `/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/Microsoft.Web/sites/test-func-denoise`, you can define a rule like below.
 
