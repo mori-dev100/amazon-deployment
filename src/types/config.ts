@@ -1,4 +1,5 @@
 import * as t from 'io-ts'
+import { PropertyChangeTypeT } from './whatif'
 
 const RuleT = t.intersection([
   t.type({
@@ -10,6 +11,7 @@ const RuleT = t.intersection([
     resourceName: t.string,
     resourceNameRegex: t.string,
     propertyPath: t.string,
+    propertyChangeType: PropertyChangeTypeT,
   }),
 ])
 

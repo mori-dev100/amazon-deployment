@@ -112,6 +112,27 @@ describe('rule-engine', () => {
     ])
   })
 
+  it('filter type of property change', async () => {
+    const input = await import ('./rule-engine-testdata-property-change-type.json') as OperationResult
+
+    const actual = denoiseOperationResult(input, [{
+      propertyChangeType: 'Delete',
+    }])
+    assert.deepEqual(actual.changes.map(c => ({
+      resourceId: c.resourceId,
+      changeType: c.changeType,
+    })), [
+      {
+        resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg1/providers/Microsoft.Storage/storageAccounts/testmodify1',
+        changeType: 'Modify',
+      },
+      {
+        resourceId: '/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg2/providers/Microsoft.OperationalInsights/workspaces/testmodify2',
+        changeType: 'NoChange',
+      },
+    ])
+  })
+
   describe('filter path of property change', () => {
     it("root", async () => {
       const input = await import ('./rule-engine-testdata-path-root.json') as OperationResult
