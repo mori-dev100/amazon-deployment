@@ -17,7 +17,7 @@
     "test": "mocha \"test/**/*.spec.ts\"",
     "test:watch": "mocha --watch \"test/**/*.spec.ts\"",
     "test:debug": "NODE_OPTIONS=--inspect-brk mocha \"test/**/*.spec.ts\"",
-    "check-license": "license-checker --production --onlyAllow \"MIT;BSD-3-Clause;BSD-2-Clause;0BSD;ISC;Apache-2.0;Python-2.0;CC-BY-4.0\" --unknown --summary --excludePackages=\"@vue/compiler-sfc@2.7.13\""
+    "check-license": "license-checker --onlyAllow \"MIT;BSD-3-Clause;BSD-2-Clause;0BSD;ISC;Apache-2.0;Python-2.0;CC0-1.0;CC-BY-3.0;CC-BY-4.0\" --unknown --summary --excludePackages=\"@vue/compiler-sfc@2.7.13\""
   },
   "bin": {
     "az-deployment-denoise": "bin/az-deployment-denoise"
