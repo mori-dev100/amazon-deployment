@@ -25,7 +25,7 @@ const PropertyChangeTypeList = {
   Modify: 'Modify',
   NoEffect: 'NoEffect',
 }
-const PropertyChangeTypeT = t.keyof(PropertyChangeTypeList)
+export const PropertyChangeTypeT = t.keyof(PropertyChangeTypeList)
 
 /**
  * property change

@@ -27,6 +27,7 @@ function filterPropertyChanges(propertyChange: PropertyChange[], resourceId: str
       const resourceTypeMatched = matchString(rule.resourceType, resource.type)
       const resourceNameMatched = matchString(rule.resourceName, resource.name)
       const resourceNameRegexMatched = matchStringRegex(rule.resourceNameRegex, resource.name)
+      const propertyChangeTypeMatched = matchString(rule.propertyChangeType, pc.propertyChangeType)
       const pathMatched = matchString(rule.propertyPath, fullPath)
       if (
         resourceGroupMatched
@@ -34,6 +35,7 @@ function filterPropertyChanges(propertyChange: PropertyChange[], resourceId: str
         && resourceTypeMatched
         && resourceNameMatched
         && resourceNameRegexMatched
+        && propertyChangeTypeMatched
         && pathMatched
       ) {
         return null
