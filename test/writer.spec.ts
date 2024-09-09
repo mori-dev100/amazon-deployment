@@ -329,6 +329,18 @@ describe('writer', () => {
         ['This result has been filtered using az-deployment-denoise: https://github.com/ottijp/az-deployment-denoise'],
         [],
 
+        // symbol legend
+        ['Resource and property changes are indicated with these symbols:'],
+        ['Delete', 1, 'Delete'],
+        ['Create', 1, 'Create'],
+        ['Modify', 1, 'Modify'],
+        ['Nochange', 1, 'NoChange'],
+        ['Ignore', 1, 'Ignore'],
+        [],
+
+        ['The deployment will update the following scope:'],
+        [],
+
         // first resource group
         ['Scope: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg'],
         [],

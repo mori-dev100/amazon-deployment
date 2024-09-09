@@ -53,6 +53,28 @@ const consolePrinter: Printer = {
   },
 }
 
+function changeTypeSetOfPropertyChange(propertyChange: PropertyChange, changeTypeSet: Set<PropertyChangeType|ChangeType>) {
+  changeTypeSet.add(propertyChange.propertyChangeType)
+  if (propertyChange.children) {
+    propertyChange.children.forEach(pc => {
+      changeTypeSetOfPropertyChange(pc, changeTypeSet)
+    })
+  }
+}
+
+function changeTypeSetOfOperationResult(operationResult: OperationResult): Set<PropertyChangeType|ChangeType> {
+  const changeTypeSet = new Set<PropertyChangeType|ChangeType>()
+  operationResult.changes.forEach(c => {
+    changeTypeSet.add(c.changeType)
+    if (c.changeType == 'Modify') {
+      c.delta.forEach(pc => {
+        changeTypeSetOfPropertyChange(pc, changeTypeSet)
+      })
+    }
+  })
+  return changeTypeSet
+}
+
 export function printPretty(OperationResult: OperationResult, printer: Printer = consolePrinter) {
   const pretty = organizeResult(OperationResult)
 
@@ -60,11 +82,31 @@ export function printPretty(OperationResult: OperationResult, printer: Printer =
   printer.printLine('Note: The result may contain false positive predictions (noise).')
   printer.printLine('You can help us improve the accuracy of the result by opening an issue here: https://aka.ms/WhatIfIssues')
   printer.printLine('This result has been filtered using az-deployment-denoise: https://github.com/ottijp/az-deployment-denoise')
+  printer.printLine()
 
-  // TODO: symbol list
+  // print symbol legend
+  printer.printLine('Resource and property changes are indicated with these symbols:')
+  const changeTypes = Array.from(changeTypeSetOfOperationResult(OperationResult))
+    .sort((lhs, rhs) => changeTypeOrder[lhs] - changeTypeOrder[rhs])
+  changeTypes.forEach(ctype => {
+    let description: string
+    switch (ctype) {
+      case 'Create': description = 'Create'; break
+      case 'Delete': description = 'Delete'; break
+      case 'Modify': description = 'Modify'; break
+      case 'NoChange': description = 'Nochange'; break
+      case 'Ignore': description = 'Ignore'; break
+      case 'Array':  description = 'Modify'; break
+      case 'NoEffect': description = 'Noeffect'; break
+    }
+    printer.printLine(description, 1, ctype)
+  })
+  printer.printLine()
+
+  printer.printLine('The deployment will update the following scope:')
+  printer.printLine()
 
   for (const scope of pretty.scopes) {
-    printer.printLine()
     printer.printLine(`Scope: ${scope.id}`)
     printer.printLine()
     for (const change of scope.changes) {
