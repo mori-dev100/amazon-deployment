@@ -5,9 +5,9 @@ import { denoiseOperationResult } from '@/rule-engine'
 
 class App {
   async run() {
-    await parseCommand()
+    const commandOption = await parseCommand()
 
-    const config = await readConfig('./az-deployment-denoise.json')
+    const config = await readConfig(commandOption.configFile)
     const result = await readOperationResult()
     const denoisedResult = denoiseOperationResult(result, config.rules)
     printPretty(denoisedResult)
