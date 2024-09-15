@@ -138,6 +138,12 @@ Execute `az deployment` with `--no-pretty-print` and input its output to `az-dep
 az deployment group what-if --resource-group YOUR_RESOURCE_GROUP --template-file YOUR_TEMPLATE_FILE --no-pretty-print | az-deployment-denoise
 ```
 
+You can show available options with `--help`.
+
+```bash
+az-deployment-denoise --help
+```
+
 ## Development
 
 ### Install dependencies
