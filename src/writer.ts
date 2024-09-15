@@ -75,8 +75,8 @@ function changeTypeSetOfOperationResult(operationResult: OperationResult): Set<P
   return changeTypeSet
 }
 
-export function printPretty(OperationResult: OperationResult, printer: Printer = consolePrinter) {
-  const pretty = organizeResult(OperationResult)
+export function printPretty(operationResult: OperationResult, printer: Printer = consolePrinter) {
+  const pretty = organizeResult(operationResult)
 
   // print header
   printer.printLine('Note: The result may contain false positive predictions (noise).')
@@ -86,7 +86,7 @@ export function printPretty(OperationResult: OperationResult, printer: Printer =
 
   // print symbol legend
   printer.printLine('Resource and property changes are indicated with these symbols:')
-  const changeTypes = Array.from(changeTypeSetOfOperationResult(OperationResult))
+  const changeTypes = Array.from(changeTypeSetOfOperationResult(operationResult))
     .sort((lhs, rhs) => changeTypeOrder[lhs] - changeTypeOrder[rhs])
   changeTypes.forEach(ctype => {
     let description: string
