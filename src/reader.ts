@@ -1,3 +1,4 @@
+import * as path from 'node:path'
 import * as fs from 'node:fs'
 import * as t from 'io-ts'
 import { isLeft } from 'fp-ts/Either'
@@ -6,6 +7,7 @@ import { fold } from 'fp-ts/Either'
 
 import { OperationResult, OperationResultT } from '@/types/whatif'
 import { Config, ConfigT } from '@/types/config'
+import { PackageInfo } from '@/types/package-info'
 
 /**
  * read content from file or stdin
@@ -54,4 +56,10 @@ export async function readConfig(path: string): Promise<Config> {
     throw Error(`invalid config at [${getPaths(decoded).join(', ')}]`)
   }
   return decoded.right
+}
+
+export async function readPackageInfo(): Promise<PackageInfo> {
+  const packageJsonPath = path.join(__dirname, '..', 'package.json')
+  const content = await readFile(packageJsonPath)
+  return JSON.parse(content) as PackageInfo
 }
