@@ -1,5 +1,3 @@
-**UNDER DEVELOPMENT**
-
 # Azure deployment what-If denoiser
 
 This tool helps reduce false positive predictions in the result of `az deployment what-if` (ARM, Bicep) by filtering out unnecessary changes.
