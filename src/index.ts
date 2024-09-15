@@ -12,5 +12,11 @@ class App {
 }
 
 (async () => {
-  await new App().run()
+  try {
+    await new App().run()
+  }
+  catch (e) {
+    // eslint-disable-next-line no-console
+    console.error((e as Error).message)
+  }
 })()
