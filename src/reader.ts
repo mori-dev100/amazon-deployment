@@ -4,13 +4,14 @@ import * as t from 'io-ts'
 import { isLeft } from 'fp-ts/Either'
 import { pipe } from 'fp-ts/function'
 import { fold } from 'fp-ts/Either'
-
 import { OperationResult, OperationResultT } from '@/types/whatif'
 import { Config, ConfigT } from '@/types/config'
 import { PackageInfo } from '@/types/package-info'
 
 /**
- * read content from file or stdin
+ * Read content from file or stdin.
+ * @param path - file path
+ * @returns utf8 decoded file content
  */
 export async function readFile(path?: string): Promise<string> {
   const stream = path ? fs.createReadStream(path) : process.stdin
@@ -22,7 +23,10 @@ export async function readFile(path?: string): Promise<string> {
 }
 
 /**
- * get validation error paths
+ * Get validation error paths.
+ * cf. https://github.com/gcanti/io-ts/blob/master/index.md#error-reporters
+ * @param v - io-ts decoded result
+ * @returns paths that caused errors
  */
 const getPaths = <A>(v: t.Validation<A>): Array<string> => {
   return pipe(
@@ -35,7 +39,9 @@ const getPaths = <A>(v: t.Validation<A>): Array<string> => {
 }
 
 /**
- * read what-if operation result from file or stdin
+ * Read what-if operation result from file or stdin.
+ * @param path - file path. null for stdin.
+ * @returns operation result
  */
 export async function readOperationResult(path?: string): Promise<OperationResult> {
   const content = await readFile(path)
@@ -47,7 +53,9 @@ export async function readOperationResult(path?: string): Promise<OperationResul
 }
 
 /**
- * read config file
+ * Read config file.
+ * @param path - config file path
+ * @returns config
  */
 export async function readConfig(path: string): Promise<Config> {
   const content = await readFile(path)
@@ -57,7 +65,10 @@ export async function readConfig(path: string): Promise<Config> {
   }
   return decoded.right
 }
-
+/**
+ * Read package.json
+ * @returns package info
+ */
 export async function readPackageInfo(): Promise<PackageInfo> {
   const packageJsonPath = path.join(__dirname, '..', 'package.json')
   const content = await readFile(packageJsonPath)
