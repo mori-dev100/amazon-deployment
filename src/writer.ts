@@ -1,6 +1,9 @@
 import { OperationResult, ChangeType, PropertyChangeType, Change, PropertyChange } from '@/types/whatif'
 import { parseAzureResource } from '@/utils/azure'
 
+/**
+ * operation result grouped by scope
+ */
 type OrganizedOperationResult = {
   scopes: {
     id: string,
@@ -8,32 +11,22 @@ type OrganizedOperationResult = {
   }[]
 }
 
-const changeTypeOrder = {
-  Delete: 1,
-  Create: 2,
-  Modify: 3,
-  'Array': 3,
-  NoChange: 4,
-  NoEffect: 4,
-  Ignore: 5,
-}
-
-function signForChangeType(t: ChangeType | PropertyChangeType) {
-  switch (t) {
-    case 'Create': return '+'
-    case 'Modify': return '~'
-    case 'Array': return '~'
-    case 'Delete': return '-'
-    case 'NoChange': return '='
-    case 'Ignore': return '*'
-    case 'NoEffect': return 'x'
-  }
-}
-
+/**
+ * abstract printer
+ */
 export type Printer = {
+  /**
+   * Print line to the media.
+   * @param line - line to print
+   * @param level - indentation level
+   * @param changeType - type of property change. will be affected prefix sign. empty string for blank sign.
+   */
   printLine(line?: string, level?: number, changeType?: ChangeType | PropertyChangeType | '' | null): void
 }
 
+/**
+ * printer for console print
+ */
 const consolePrinter: Printer = {
   printLine: function (line: string = '', level: number = 0, changeType: ChangeType | PropertyChangeType | '' | null = null) {
     const indent = Array(level).fill('  ').join('')
@@ -53,6 +46,42 @@ const consolePrinter: Printer = {
   },
 }
 
+/**
+ * display order of change types
+ */
+const changeTypeOrder = {
+  Delete: 1,
+  Create: 2,
+  Modify: 3,
+  'Array': 3,
+  NoChange: 4,
+  NoEffect: 4,
+  Ignore: 5,
+}
+
+/**
+ * Prefix sign for change type.
+ * @param t - change type or property change type
+ * @returns prefix sign
+ */
+function signForChangeType(t: ChangeType | PropertyChangeType): string {
+  switch (t) {
+    case 'Create': return '+'
+    case 'Modify': return '~'
+    case 'Array': return '~'
+    case 'Delete': return '-'
+    case 'NoChange': return '='
+    case 'Ignore': return '*'
+    case 'NoEffect': return 'x'
+  }
+}
+
+/**
+ * Append property change types that exist in the property change into the set.
+ * This is a recursive function.
+ * @param propertyChange - property changes for processing
+ * @param changeTypeSet - existing set for appending result
+ */
 function changeTypeSetOfPropertyChange(propertyChange: PropertyChange, changeTypeSet: Set<PropertyChangeType|ChangeType>) {
   changeTypeSet.add(propertyChange.propertyChangeType)
   if (propertyChange.children) {
@@ -62,10 +91,16 @@ function changeTypeSetOfPropertyChange(propertyChange: PropertyChange, changeTyp
   }
 }
 
+/**
+ * Set of (property) change types that exist in operation result.
+ * @param operationResult - operation result for processing
+ * @returns set of change (property) types which exist in operation result
+ */
 function changeTypeSetOfOperationResult(operationResult: OperationResult): Set<PropertyChangeType|ChangeType> {
   const changeTypeSet = new Set<PropertyChangeType|ChangeType>()
   operationResult.changes.forEach(c => {
     changeTypeSet.add(c.changeType)
+    // process children recursively
     if (c.changeType == 'Modify') {
       c.delta.forEach(pc => {
         changeTypeSetOfPropertyChange(pc, changeTypeSet)
@@ -75,7 +110,13 @@ function changeTypeSetOfOperationResult(operationResult: OperationResult): Set<P
   return changeTypeSet
 }
 
+/**
+ * Print operation result as pretty style.
+ * @param operationResult - operation result to print
+ * @param printer - printer for printing
+ */
 export function printPretty(operationResult: OperationResult, printer: Printer = consolePrinter) {
+  // organize (group by scope)
   const pretty = organizeResult(operationResult)
 
   // print header
@@ -103,17 +144,22 @@ export function printPretty(operationResult: OperationResult, printer: Printer =
   })
   printer.printLine()
 
+  // print general scope header
   printer.printLine('The deployment will update the following scope:')
   printer.printLine()
 
+  // print each scope
   for (const scope of pretty.scopes) {
+    // print scope header
     printer.printLine(`Scope: ${scope.id}`)
     printer.printLine()
+
+    // print each change
     for (const change of scope.changes) {
       const pathInScope = parseAzureResource(change.resourceId).pathInScope
       switch (change.changeType) {
         case 'Create':
-          // FIME: clone object and delete property
+          // FIXME: clone object and delete property
           delete change.after['resourceGroup']
           printer.printLine(`${pathInScope} [${change.after['apiVersion']}]`, 1, change.changeType)
           printer.printLine()
@@ -166,7 +212,11 @@ export function printPretty(operationResult: OperationResult, printer: Printer =
   printer.printLine(`Resource changes: ${changeTypesDescription}.`)
 }
 
-
+/**
+ * Stringify primitive value for printing.
+ * This emulates output of `az deployment * what-if`.
+ * @param value - value to print
+ */
 function stringifyPrimitiveValue(value: unknown) {
   switch (typeof value) {
     case 'string':
@@ -179,7 +229,16 @@ function stringifyPrimitiveValue(value: unknown) {
   }
 }
 
+/**
+ * Print object.
+ * This emulates output of `az deployment * what-if`.
+ * @param printer - printer for printing
+ * @param level - indentation level
+ * @param obj - object to pring
+ * @param path - paths from root to parent
+ */
 function printObject(printer: Printer, level: number, obj: object, path: string[] = []) {
+  // FIXME: too complex to read
   const flattenObj = flattenObject(obj)
   const maxKeyLength = Object.keys(flattenObj).reduce((acc, cur) => Math.max(acc, cur.length), 0) + 2
 
@@ -211,7 +270,14 @@ function printObject(printer: Printer, level: number, obj: object, path: string[
   }
 }
 
+/**
+ * Print property changes
+ * @param printer - printer for printing
+ * @param level - indentation level
+ * @param deltas - property changes to print
+ */
 function printPropertyChange(printer: Printer, level: number, deltas: PropertyChange[]) {
+  // FIXME: too complex to read
   const maxKeyLength = deltas.map(elm => elm.path).reduce((acc, cur) => Math.max(acc, cur.length), 0) + 2
   deltas.forEach(delta => {
     switch (delta.propertyChangeType) {
@@ -271,8 +337,10 @@ function printPropertyChange(printer: Printer, level: number, deltas: PropertyCh
 }
 
 /**
- * organize operation result
- * */
+ * Organize operation result.
+ * This groups operation result by scope.
+ * @param result - operation result
+ */
 function organizeResult(result: OperationResult): OrganizedOperationResult {
   // create resource group set from resouces
   const resourceGroupIds = new Set<string>
@@ -298,6 +366,12 @@ function organizeResult(result: OperationResult): OrganizedOperationResult {
   }
 }
 
+/**
+ * Convert object structure from tree to flat.
+ * This is a recursive function.
+ * @param obj - target
+ * @param path - paths from root to parent
+ */
 function flattenObject(obj: object, path: string[] = []): object {
   let ret = {}
 

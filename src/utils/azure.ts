@@ -1,3 +1,4 @@
+/** azure resource */
 export type AzureResource = {
   id: string,
   scope: 'resourceGroup',
@@ -13,7 +14,10 @@ export type AzureResource = {
 }
 
 /**
- * parse azure resource information from id
+ * parse azure resource information from resouce ID
+ * @param id - resource ID
+ * @return parsed azure resource information
+ * @throws invalid resource ID format
  */
 export function parseAzureResource(id: string): AzureResource {
   const match = id.match(/\/subscriptions\/([^/]+)\/resourceGroups\/([^/]+)\/providers\/([^/]+)\/([^/]+)\/(.+)/)
