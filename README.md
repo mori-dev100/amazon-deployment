@@ -91,7 +91,10 @@ yarn global add az-deployment-denoise
 
 ### Define filtering rule
 
-Define rules in `az-deployment-denoise.json` for filtering changes.
+Define rules in `az-deployment-denoise.json` to filter changes.
+Alternatively, you can define rules using YAML in `az-deployment-denoise.yml`.
+To specify your own file name, use the `-f` option.
+
 You can use the following conditions.
 
 | Key                | Meaning                                                                        | Example                                 |

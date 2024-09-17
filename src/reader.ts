@@ -4,6 +4,7 @@ import * as t from 'io-ts'
 import { isLeft } from 'fp-ts/Either'
 import { pipe } from 'fp-ts/function'
 import { fold } from 'fp-ts/Either'
+import * as YAML from 'yaml'
 import { OperationResult, OperationResultT } from '@/types/whatif'
 import { Config, ConfigT } from '@/types/config'
 import { PackageInfo } from '@/types/package-info'
@@ -59,7 +60,14 @@ export async function readOperationResult(path?: string): Promise<OperationResul
  */
 export async function readConfig(path: string): Promise<Config> {
   const content = await readFile(path)
-  const decoded = ConfigT.decode(JSON.parse(content))
+  let configObject: unknown
+  if (/\.ya?ml$/.test(path)) {
+    configObject = YAML.parse(content)
+  }
+  else {
+    configObject = JSON.parse(content)
+  }
+  const decoded = ConfigT.decode(configObject)
   if (isLeft(decoded)) {
     throw Error(`invalid config at [${getPaths(decoded).join(', ')}]`)
   }
