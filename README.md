@@ -152,7 +152,7 @@ az-deployment-denoise --help
 You can also execute this tool using Docker like below.
 
 ```bash
-az deployment group what-if --resource-group YOUR_RESOURCE_GROUP --template-file YOUR_TEMPLATE_FILE --no-pretty-print | docker run --rm -i -v $PWD:/config az-deployment-denoise -f /config/az-deployment-denoise.json
+az deployment group what-if --resource-group YOUR_RESOURCE_GROUP --template-file YOUR_TEMPLATE_FILE --no-pretty-print | docker run --rm -i -v $PWD:/config ottijp/az-deployment-denoise:latest -f /config/az-deployment-denoise.json
 ```
 
 ## Development
