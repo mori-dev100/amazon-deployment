@@ -21,17 +21,19 @@ describe('config validation', () => {
         {
           namespace: 'Microsoft.Web',  // should be "providerNamespace"
           resourcetype: 'sites',       // should be "resourceType"
-          path: 'properties.siteConfig.localMySqlEnabled'  // should be "propertyPath"
-        }
-      ]
+          path: 'properties.siteConfig.localMySqlEnabled',  // should be "propertyPath"
+        },
+      ],
     }
     await fs.writeFile(configPath, JSON.stringify(config, null, 2))
 
     try {
       await readConfig(configPath)
       assert.fail('Expected readConfig to throw an error')
-    } catch (error) {
-      assert.include((error as Error).message.toLowerCase(), 'invalid')
+    }
+    catch (error) {
+      const message = (error as Error).message
+      assert.include(message.toLowerCase(), 'invalid')
     }
   })
 
@@ -39,31 +41,35 @@ describe('config validation', () => {
     const configPath = path.join(testConfigDir, 'empty-rule.json')
     const config = {
       rules: [
-        {}  // empty rule should be invalid
-      ]
+        {},  // empty rule should be invalid
+      ],
     }
     await fs.writeFile(configPath, JSON.stringify(config, null, 2))
 
     try {
       await readConfig(configPath)
       assert.fail('Expected readConfig to throw an error')
-    } catch (error) {
-      assert.include((error as Error).message.toLowerCase(), 'empty')
+    }
+    catch (error) {
+      const message = (error as Error).message
+      assert.include(message.toLowerCase(), 'least one')
     }
   })
 
   it('should reject config with no rules', async () => {
     const configPath = path.join(testConfigDir, 'no-rules.json')
     const config = {
-      rules: []
+      rules: [],
     }
     await fs.writeFile(configPath, JSON.stringify(config, null, 2))
 
     try {
       await readConfig(configPath)
       assert.fail('Expected readConfig to throw an error')
-    } catch (error) {
-      assert.include((error as Error).message.toLowerCase(), 'no rules')
+    }
+    catch (error) {
+      const message = (error as Error).message
+      assert.include(message.toLowerCase(), 'least one')
     }
   })
 
@@ -74,9 +80,9 @@ describe('config validation', () => {
         {
           providerNamespace: 'Microsoft.Web',
           resourceType: 'sites',
-          propertyPath: 'properties.siteConfig.localMySqlEnabled'
-        }
-      ]
+          propertyPath: 'properties.siteConfig.localMySqlEnabled',
+        },
+      ],
     }
     await fs.writeFile(configPath, JSON.stringify(config, null, 2))
 
